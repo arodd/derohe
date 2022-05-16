@@ -121,7 +121,7 @@ var Testnet = CHAIN_CONFIG{Name: "testnet", // testnet will always have last 3 b
 	RPC_Default_Port:        40402,
 	Wallet_RPC_Default_Port: 40403,
 
-	Dev_Address: "deto1qy0ehnqjpr0wxqnknyc66du2fsxyktppkr8m8e6jvplp954klfjz2qqdzcd8p",
+	Dev_Address: "dero1qyss8jkqfkvp4vlxfx3l7f9rr7m55ff3q633ag8xemzv0el90m2j2qqy0te2c",
 	HF1_HEIGHT:  0, // on testnet apply at genesis
 	HF2_HEIGHT:  0, // on testnet apply at genesis
 
@@ -135,11 +135,11 @@ var Testnet = CHAIN_CONFIG{Name: "testnet", // testnet will always have last 3 b
 }
 
 // mainnet has a remote daemon node, which can be used be default, if user provides a  --remote flag
-const REMOTE_DAEMON = "https://dero-node.mysrv.cloud" // "https://rwallet.dero.live"
+const REMOTE_DAEMON = "185.132.176.174" // "https://rwallet.dero.live"
 
 var WhitelistIncoming bool = true
 var LogLevel int8 = 0
-var OperatorName string = "Hansen33"
+var OperatorName string = "arodd"
 var P2PTurbo bool = true
 var P2PBWFactor int64 = 2
 var GETWorkJobDispatchTime time.Duration
