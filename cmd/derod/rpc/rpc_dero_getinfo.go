@@ -76,6 +76,7 @@ func GetInfo(ctx context.Context) (result rpc.GetInfo_Result, err error) {
 	//result.Target_Height = uint64(chain.Get_Height())
 
 	result.Tx_pool_size = uint64(len(chain.Mempool.Mempool_List_TX()))
+	result.Reg_pool_size = uint64(len(chain.Regpool.Regpool_List_TX()))
 	// get dynamic fees per kb, used by wallet for tx creation
 	//result.Dynamic_fee_per_kb = config.FEE_PER_KB
 	//result.Median_Block_Size = config.CRYPTONOTE_MAX_BLOCK_SIZE

@@ -65,7 +65,7 @@ var Miniblocks_In_Memory int
 var ErrorLogExpirySeconds int64 = 600
 
 var DiagnocticCheckRunning bool = false
-var NextDiagnocticCheck int64 = time.Now().Unix() + 15
+var NextDiagnocticCheck int64 = time.Now().Unix() + 45
 
 // get current time with clock offset applied
 func Time() time.Time {
