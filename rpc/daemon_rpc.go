@@ -291,6 +291,7 @@ type (
 		Top_block_hash             string  `json:"top_block_hash"`
 		Tx_count                   uint64  `json:"tx_count"`
 		Tx_pool_size               uint64  `json:"tx_pool_size"`
+		Reg_pool_size              uint64  `json:"reg_pool_size"`
 		Dynamic_fee_per_kb         uint64  `json:"dynamic_fee_per_kb"`
 		Total_Supply               uint64  `json:"total_supply"`
 		Median_Block_Size          uint64  `json:"median_block_size"`
