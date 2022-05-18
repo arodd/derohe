@@ -299,8 +299,9 @@ type (
 		Dynamic_fee_per_kb         uint64  `json:"dynamic_fee_per_kb"`
 		Total_Supply               uint64  `json:"total_supply"`
 		Median_Block_Size          uint64  `json:"median_block_size"`
-		PeerCount                 uint64  `json:"peer_count"`
-		PeerWhitelist             uint64  `json:"peer_whitelist"`
+		PeerCount                  uint64  `json:"peer_count"`
+		PeerWhitelist              uint64  `json:"peer_whitelist"`
+		PeerLatency                int64   `json:"peer_latency"`
 		Version                    string  `json:"version"`
 
 		Miners               int `json:"connected_miners"`

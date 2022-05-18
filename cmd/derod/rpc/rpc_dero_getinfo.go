@@ -100,6 +100,7 @@ func GetInfo(ctx context.Context) (result rpc.GetInfo_Result, err error) {
         result.HeightDelta = result.BestHeight - result.OurHeight
         result.PeerCount = p2p.Peer_Count()
         result.PeerWhitelist = p2p.Peer_Count_Whitelist()
+	result.PeerLatency = globals.GetOffsetP2P().Round(time.Millisecond).Milliseconds()
 	result.Miners = CountMiners()
 	result.Miniblocks_In_Memory = globals.Miniblocks_In_Memory
 	result.CountMinisRejected = CountMinisRejected
