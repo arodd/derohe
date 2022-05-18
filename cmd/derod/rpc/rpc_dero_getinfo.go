@@ -95,7 +95,11 @@ func GetInfo(ctx context.Context) (result rpc.GetInfo_Result, err error) {
 	in, out := p2p.Peer_Direction_Count()
 	result.Incoming_connections_count = in
 	result.Outgoing_connections_count = out
-	result.White_peerlist_size = p2p.Peer_Whitelist_Counts()
+        result.OurHeight = chain.Get_Height()
+        result.BestHeight, result.BestTopoHeight = p2p.Best_Peer_Height()
+        result.HeightDelta = result.BestHeight - result.OurHeight
+        result.PeerCount = p2p.Peer_Count()
+        result.PeerWhitelist = p2p.Peer_Count_Whitelist()
 	result.Miners = CountMiners()
 	result.Miniblocks_In_Memory = globals.Miniblocks_In_Memory
 	result.CountMinisRejected = CountMinisRejected
