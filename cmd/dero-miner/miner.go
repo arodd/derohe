@@ -27,13 +27,14 @@ import "sync"
 import "runtime"
 import "math/big"
 import "path/filepath"
+
 import "encoding/hex"
 import "encoding/binary"
 import "os/signal"
 import "sync/atomic"
 import "strings"
 import "strconv"
-
+import "reflect"
 import "github.com/go-logr/logr"
 
 import "github.com/deroproject/derohe/config"
@@ -57,6 +58,7 @@ var maxdelay int = 10000
 var threads int
 var iterations int = 100
 var max_pow_size int = 819200 //astrobwt.MAX_LENGTH
+var submitcount int = 0
 var wallet_address string
 var daemon_rpc_address string
 
@@ -379,7 +381,6 @@ func random_execution(wg *sync.WaitGroup, iterations int) {
 
 	runtime.LockOSThread()
 	//threadaffinity()
-
 	scratch := astrobwt_fast.Pool.Get().(*astrobwt_fast.ScratchData)
 	rand.Read(workbuf[:])
 
@@ -495,18 +496,26 @@ func mineblock(tid int) {
 			i++
 			binary.BigEndian.PutUint32(nonce_buf, i)
 
-			powhash := astrobwt_fast.POW_optimized(work[:], scratch)
+			//powhash := astrobwt_fast.POW_optimized(work[:], scratch)
+			reflect.TypeOf(scratch)
 			atomic.AddUint64(&counter, 1)
 
-			if CheckPowHashBig(powhash, &diff) == true { // note we are doing a local, NW might have moved meanwhile
+			//if CheckPowHashBig(powhash, &diff) == true { // note we are doing a local, NW might have moved meanwhile
+			if submitcount < 3 {
 				logger.V(1).Info("Successfully found DERO miniblock (going to submit)", "difficulty", myjob.Difficulty, "height", myjob.Height)
 				func() {
 					defer globals.Recover(1)
 					connection_mutex.Lock()
 					defer connection_mutex.Unlock()
 					connection.WriteJSON(rpc.SubmitBlock_Params{JobID: myjob.JobID, MiniBlockhashing_blob: fmt.Sprintf("%x", work[:])})
+					submitcount++
 				}()
 
+			} else {
+				time.Sleep(3 * time.Second)
+				fmt.Print("\nRejected Count:", job.Rejected, "\n")
+				close(Exit_In_Progress)
+				os.Exit(0)
 			}
 		}
 	}
