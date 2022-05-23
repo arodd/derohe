@@ -21,6 +21,7 @@ import "os"
 import "time"
 import "fmt"
 import "bytes"
+import "path"
 
 import "bufio"
 import "strings"
@@ -140,7 +141,7 @@ func main() {
 	// parse arguments and setup logging , print basic information
 	exename, _ := os.Executable()
 	globals.InitializeLog(l.Stdout(), &lumberjack.Logger{
-		Filename:   exename + ".log",
+		Filename:   path.Base(exename) + ".log",
 		MaxSize:    100, // megabytes
 		MaxBackups: 2,
 	})
