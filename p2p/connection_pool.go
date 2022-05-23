@@ -350,6 +350,17 @@ func Peer_Count() (Count uint64) {
 	})
 	return
 }
+func Peer_Count_Whitelist() (Count uint64) {
+
+	for _, p := range peer_map {
+		if p.Whitelist { // only display white listed peer
+			// whitelisted = "yes"
+			Count++
+		}
+	}
+
+	return
+}
 
 // this returns count of peers in both directions
 func Peer_Direction_Count() (Incoming uint64, Outgoing uint64) {
